@@ -66,6 +66,15 @@ public class UserController {
 	public users registerUser(@RequestBody users user) {
 		return userRepo.save(user);
 	}
+	
+	/*Send verification email*/
+	@PostMapping("/verify/{email}")
+	public String sendVerificationEmail(@PathVariable String email) {
+		String linkVerify = "Silahkan klik link di bawah ini untuk verifikasi email\n"
+				+ " http://localhost:8080/users/verify/"+email;
+		this.emailUtil.sendEmail(email, "Verifkasi email toko BIKELAH", linkVerify);
+		return "email sent!";
+	}
 
 	/*Verify email user*/
 	@GetMapping("/verify/{email}")
@@ -103,7 +112,7 @@ public class UserController {
 		users finduser = userRepo.findByEmail(email).get();
 		String linkVerify = "Silahkan klik link di bawah ini untuk mereset password"
 				+ " http://localhost:3000/resetpassword/" + finduser.getId() + "/" + finduser.getPassword();
-		this.emailUtil.sendEmail(email, "Reset email toko bikelah", linkVerify);
+		this.emailUtil.sendEmail(email, "Reset email toko BIKELAH", linkVerify);
 		return "email sent!";
 	}
 
@@ -129,7 +138,7 @@ public class UserController {
 
 		kursIndonesia.setDecimalFormatSymbols(formatRp);
 
-		String linkVerify = "Berikut bukti transaksi yang telah dilakukan.\nId transaksi : " + transaction.getId();
+		String linkVerify = "Berikut bukti transaksi yang telah dilakukan.\nId transaksi : " + transaction.getId()+"\n";
 		int i = 1;
 		for (ItemListModel println : itemList) {
 			linkVerify += i + ". " + println.getProductName() + "\t dengan harga" + kursIndonesia.format(println.getPrice()) + "\t Sebanyak"
