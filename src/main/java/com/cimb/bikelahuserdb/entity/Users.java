@@ -1,18 +1,26 @@
 package com.cimb.bikelahuserdb.entity;
 
-public class UserUpdateTemp {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
+public class Users {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+
 	private String username;
 	private String fullname;
 	private String password;
 	private String email;
+	private String role;
 	private String address;
 	private String phone;
 	private String lastlogin;
 	private boolean verified;
-	
-	protected UserUpdateTemp() {}
 
 	public int getId() {
 		return id;
@@ -20,6 +28,14 @@ public class UserUpdateTemp {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public String getUsername() {
@@ -85,5 +101,4 @@ public class UserUpdateTemp {
 	public void setVerified(boolean verified) {
 		this.verified = verified;
 	}
-	
 }

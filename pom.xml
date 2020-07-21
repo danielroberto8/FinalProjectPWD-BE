@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cimb</groupId>
-	<artifactId>tokolapak</artifactId>
+	<artifactId>bikelahdb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>tokolapak</name>
-	<description>testing</description>
+	<name>bikelahdb</name>
+	<description>Backend for bikelah</description>
 
 	<properties>
 		<java.version>1.8</java.version>

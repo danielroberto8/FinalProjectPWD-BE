@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cimb.bikelahuserdb.dao.UserRepo;
 import com.cimb.bikelahuserdb.entity.ItemListModel;
 import com.cimb.bikelahuserdb.entity.TransactionModel;
-import com.cimb.bikelahuserdb.entity.UserUpdateTemp;
-import com.cimb.bikelahuserdb.entity.users;
+import com.cimb.bikelahuserdb.entity.UsersModel;
+import com.cimb.bikelahuserdb.entity.Users;
 import com.cimb.bikelahuserdb.util.EmailUtil;
 
 @RestController
@@ -38,19 +38,19 @@ public class UserController {
 
 	/*Get semua user data*/
 	@GetMapping()
-	public Iterable<users> getAllUsers() {
+	public Iterable<Users> getAllUsers() {
 		return userRepo.findAll();
 	}
 
 	/*Get user data dengan username*/
 	@GetMapping("/username/{username}")
-	public Optional<users> getByUsername(@PathVariable() String username) {
+	public Optional<Users> getByUsername(@PathVariable() String username) {
 		return userRepo.findByUsername(username);
 	}
 
 	/*Get user data dengan email*/
 	@GetMapping("/email/{email}")
-	public Optional<users> getByEmail(@PathVariable() String email) {
+	public Optional<Users> getByEmail(@PathVariable() String email) {
 		return userRepo.findByEmail(email);
 	}
 
@@ -63,7 +63,7 @@ public class UserController {
 
 	/*Daftar user baru*/
 	@PostMapping
-	public users registerUser(@RequestBody users user) {
+	public Users registerUser(@RequestBody Users user) {
 		return userRepo.save(user);
 	}
 	
@@ -80,7 +80,7 @@ public class UserController {
 	@GetMapping("/verify/{email}")
 	public String verifyByEmail(@PathVariable String email) {
 		System.out.println("Email sudah diverifikasi");
-		users findUserEmail = userRepo.findByEmail(email).get();
+		Users findUserEmail = userRepo.findByEmail(email).get();
 		if (findUserEmail == null) {
 			throw new RuntimeException("User not found");
 		}
@@ -94,8 +94,8 @@ public class UserController {
 	/*Ganti password user*/
 	@PatchMapping("/key/{key1}/{key2}")
 	public String changePassword(@PathVariable int key1, @PathVariable String key2,
-			@RequestBody UserUpdateTemp userData) {
-		users finduser = userRepo.findById(key1).get();
+			@RequestBody UsersModel userData) {
+		Users finduser = userRepo.findById(key1).get();
 
 		System.out.print(finduser.getPassword());
 		if (finduser.getPassword().equals(key2)) {
@@ -109,7 +109,7 @@ public class UserController {
 	/*Mengirim email lupa password*/
 	@PostMapping("/sendemailreset/{email}")
 	public String sendEmailReset(@PathVariable() String email) {
-		users finduser = userRepo.findByEmail(email).get();
+		Users finduser = userRepo.findByEmail(email).get();
 		String linkVerify = "Silahkan klik link di bawah ini untuk mereset password"
 				+ " http://localhost:3000/resetpassword/" + finduser.getId() + "/" + finduser.getPassword();
 		this.emailUtil.sendEmail(email, "Reset email toko BIKELAH", linkVerify);
@@ -126,7 +126,7 @@ public class UserController {
 			System.out.println(println.getProductName());
 		}
 
-		users finduser = userRepo.findById(transaction.getUser()).get();
+		Users finduser = userRepo.findById(transaction.getUser()).get();
 
 		/*Membuat format currency */
 		DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
@@ -152,13 +152,13 @@ public class UserController {
 
 	/*controller untuk merubah data pengguna */
 	@PatchMapping("/{id}")
-	public ResponseEntity<Void> updateInfo(@Validated @PathVariable int id, @RequestBody UserUpdateTemp userdata) {
-		Optional<users> finduser = userRepo.findById(id);
+	public ResponseEntity<Void> updateInfo(@Validated @PathVariable int id, @RequestBody UsersModel userdata) {
+		Optional<Users> finduser = userRepo.findById(id);
 		if (!finduser.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		users user = finduser.get();
+		Users user = finduser.get();
 		if (userdata.getUsername() != null) {
 			user.setUsername(userdata.getUsername());
 		}

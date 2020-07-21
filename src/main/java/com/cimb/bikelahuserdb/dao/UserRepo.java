@@ -4,12 +4,12 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.cimb.bikelahuserdb.entity.users;
+import com.cimb.bikelahuserdb.entity.Users;
 
-public interface UserRepo extends JpaRepository<users, Integer> {
+public interface UserRepo extends JpaRepository<Users, Integer> {
 
-	public Optional<users> findByUsername(String username);
+	public Optional<Users> findByUsername(String username);
 
-	public Optional<users> findByEmail(String email);
+	public Optional<Users> findByEmail(String email);
 
 }
