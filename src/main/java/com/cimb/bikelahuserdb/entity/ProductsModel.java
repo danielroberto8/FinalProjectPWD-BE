@@ -9,7 +9,7 @@ public class ProductsModel {
 	private int discount;
 	private String category;
 	private String image;
-	private String desc;
+	private String description;
 	private int totalPurchased;
 
 	protected ProductsModel() {
@@ -71,12 +71,12 @@ public class ProductsModel {
 		this.image = image;
 	}
 
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getTotalPurchased() {
