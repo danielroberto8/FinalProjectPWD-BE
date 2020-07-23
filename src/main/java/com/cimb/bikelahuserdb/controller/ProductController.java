@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cimb.bikelahuserdb.dao.ProductRepo;
 import com.cimb.bikelahuserdb.entity.Products;
-import com.cimb.bikelahuserdb.entity.ProductsModel;
+import com.cimb.bikelahuserdb.entity.ProductModel;
 
 @RestController
 @RequestMapping("/products")
@@ -47,7 +47,7 @@ public class ProductController {
 	}
 
 	@PatchMapping("/{id}")
-	public ResponseEntity<Products> updateProduct(@PathVariable int id, @RequestBody ProductsModel product) {
+	public ResponseEntity<Products> updateProduct(@PathVariable int id, @RequestBody ProductModel product) {
 		Products findProduct = productRepo.findById(id).get();
 
 		if (product.getProductName() != null) {

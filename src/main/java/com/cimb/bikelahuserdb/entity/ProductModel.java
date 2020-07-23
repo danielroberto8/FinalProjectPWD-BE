@@ -1,6 +1,6 @@
 package com.cimb.bikelahuserdb.entity;
 
-public class ProductsModel {
+public class ProductModel {
 
 	private int id;
 	private String productName;
@@ -12,7 +12,7 @@ public class ProductsModel {
 	private String description;
 	private int totalPurchased;
 
-	protected ProductsModel() {
+	protected ProductModel() {
 	}
 
 	public int getId() {

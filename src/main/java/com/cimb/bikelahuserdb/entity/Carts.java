@@ -1,9 +1,12 @@
 package com.cimb.bikelahuserdb.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Carts {
@@ -11,8 +14,14 @@ public class Carts {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	private int userId;
-	private int productId;
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "user_Id")
+	private Users user;
+
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "product_Id")
+	private Products product;
+
 	private int quantity;
 
 	public int getId() {
@@ -23,20 +32,20 @@ public class Carts {
 		this.id = id;
 	}
 
-	public int getUserId() {
-		return userId;
+	public Users getUser() {
+		return user;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser(Users user) {
+		this.user = user;
 	}
 
-	public int getProductId() {
-		return productId;
+	public Products getProduct() {
+		return product;
 	}
 
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct(Products product) {
+		this.product = product;
 	}
 
 	public int getQuantity() {

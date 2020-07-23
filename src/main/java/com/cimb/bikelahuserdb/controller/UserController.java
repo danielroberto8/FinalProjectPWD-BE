@@ -58,7 +58,6 @@ public class UserController {
 	@DeleteMapping("/{id}")
 	public void deleteUser(@PathVariable() int id) {
 		userRepo.deleteById(id);
-		;
 	}
 
 	/*Daftar user baru*/

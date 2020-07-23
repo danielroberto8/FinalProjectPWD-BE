@@ -1,9 +1,16 @@
 package com.cimb.bikelahuserdb.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Products {
@@ -19,6 +26,11 @@ public class Products {
 	private String image;
 	private String description;
 	private int totalPurchased;
+	
+	@OneToMany(fetch = FetchType.LAZY,mappedBy ="product", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Carts> cart;
+
 	public int getId() {
 		return id;
 	}
@@ -73,5 +85,10 @@ public class Products {
 	public void setTotalPurchased(int totalPurchased) {
 		this.totalPurchased = totalPurchased;
 	}
-
+	public List<Carts> getCart() {
+		return cart;
+	}
+	public void setCart(List<Carts> cart) {
+		this.cart = cart;
+	}
 }
